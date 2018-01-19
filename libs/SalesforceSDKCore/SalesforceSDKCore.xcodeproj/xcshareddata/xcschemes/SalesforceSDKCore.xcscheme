@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0900"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "NO"
       buildImplicitDependencies = "NO">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "REVEAL_ARCHIVE_IN_FINDER=true&#10;&#10;FRAMEWORK_NAME=&quot;${PROJECT_NAME}&quot;&#10;&#10;SIMULATOR_LIBRARY_PATH=&quot;${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework&quot;&#10;&#10;DEVICE_LIBRARY_PATH=&quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework&quot;&#10;&#10;UNIVERSAL_LIBRARY_DIR=&quot;${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal&quot;&#10;&#10;FRAMEWORK=&quot;${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework&quot;&#10;&#10;#&#10;&#10;xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2&gt;&amp;1&#10;&#10;xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2&gt;&amp;1&#10;&#10;#&#10;&#10;rm -rf &quot;${UNIVERSAL_LIBRARY_DIR}&quot;&#10;&#10;mkdir &quot;${UNIVERSAL_LIBRARY_DIR}&quot;&#10;&#10;mkdir &quot;${FRAMEWORK}&quot;&#10;&#10;#&#10;&#10;cp -r &quot;${DEVICE_LIBRARY_PATH}/.&quot; &quot;${FRAMEWORK}&quot;&#10;&#10;#&#10;&#10;lipo &quot;${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}&quot; &quot;${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}&quot; -create -output &quot;${FRAMEWORK}/${FRAMEWORK_NAME}&quot; | echo&#10;&#10;#&#10;&#10;if [ -d &quot;${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/&quot; ]; then&#10;cp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* &quot;${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/&quot;*/ | echo&#10;fi&#10;&#10;if [ -d &quot;${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/&quot; ]; then&#10;cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* &quot;${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/&quot;*/ | echo&#10;fi&#10;&#10;#&#10;&#10;OUTPUT_DIR=&quot;${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/&quot;&#10;&#10;rm -rf &quot;$OUTPUT_DIR&quot;&#10;mkdir -p &quot;$OUTPUT_DIR&quot;&#10;&#10;cp -r &quot;${FRAMEWORK}&quot; &quot;$OUTPUT_DIR&quot;&#10;&#10;if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then&#10;open &quot;${OUTPUT_DIR}/&quot;&#10;fi">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "CE4CE26A1C0E449C009F6029"
+                     BuildableName = "SalesforceSDKCore.framework"
+                     BlueprintName = "SalesforceSDKCore"
+                     ReferencedContainer = "container:SalesforceSDKCore.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"

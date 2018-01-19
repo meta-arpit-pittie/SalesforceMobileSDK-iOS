@@ -933,7 +933,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/../../shared/common/build/tools/generate_headers.sh\" -o \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework/Headers/$PRODUCT_NAME.h\" -u \"$SRCROOT/$TARGET_NAME/$TARGET_NAME.h\"";
+			shellScript = "";
 		};
 		CE2B8BFA1CE91AC700C6FC6A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -946,7 +946,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../shared/common/build/tools/update_podspec_headers.sh\" -s sdkanalytics";
+			shellScript = "";
 		};
 		CE2B8C0D1CE91FD400C6FC6A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
