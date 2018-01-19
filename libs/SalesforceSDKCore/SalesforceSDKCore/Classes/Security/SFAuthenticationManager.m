@@ -845,6 +845,11 @@ static Class InstanceClass = nil;
     [SFSDKWindowManager.sharedManager.authWindow dismissWindow];
 }
 
+- (void)dismissAuthViewControllerAndCancelAuthorization {
+    [self dismissAuthViewControllerIfPresent];
+    [self delegateDidCancelAuthorizationFlow];
+}
+
 - (void)retrievedIdentityData
 {
     // NB: This method is assumed to run after identity data has been refreshed from the service, or otherwise
@@ -1123,6 +1128,14 @@ static Class InstanceClass = nil;
     [self enumerateDelegates:^(id<SFAuthenticationManagerDelegate> delegate) {
         if ([delegate respondsToSelector:@selector(authManagerDidCancelGenericFlow:)]) {
             [delegate authManagerDidCancelGenericFlow:self];
+        }
+    }];
+}
+
+- (void)delegateDidCancelAuthorizationFlow {
+    [self enumerateDelegates:^(id<SFAuthenticationManagerDelegate> delegate) {
+        if ([delegate respondsToSelector:@selector(authManagerDidCancelAuthentication:)]) {
+            [delegate authManagerDidCancelAuthentication:self];
         }
     }];
 }

@@ -15,6 +15,7 @@
 - (void)handleAppDidBecomeActive:(nonnull NSNotification *)notification;
 - (void)handleAppWillResignActive:(nonnull NSNotification *)notification;
 - (void)handlePostLogout;
+- (void)handlePostCancelAuthorization;
 - (void)handleAuthCompleted:(nonnull NSNotification *)notification;
 - (void)handleIDPInitiatedAuthCompleted:(nonnull NSNotification *)notification;
 - (void)handleUserDidLogout:(nonnull NSNotification *)notification;

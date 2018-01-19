@@ -193,6 +193,8 @@ SFSDK_USE_DEPRECATED_END
 }
 
 - (BOOL)shouldShowBackButton {
+    return YES;
+    
     if ([SFUserAccountManager sharedInstance].idpEnabled) {
         return YES;
     }
@@ -207,11 +209,15 @@ SFSDK_USE_DEPRECATED_END
 }
 
 - (IBAction)backToPreviousHost:(id)sender {
-    if (![SFUserAccountManager sharedInstance].idpEnabled) {
-        [[SFSDKWindowManager sharedManager].authWindow dismissWindow];
-    }else {
-        [[SFSDKWindowManager sharedManager].authWindow.viewController dismissViewControllerAnimated:NO completion:nil];
-    }
+    [[SFAuthenticationManager sharedManager] cancelAuthentication];
+    [[SFAuthenticationManager sharedManager] dismissAuthViewControllerAndCancelAuthorization];
+    return;
+    
+//    if (![SFUserAccountManager sharedInstance].idpEnabled) {
+//        [[SFSDKWindowManager sharedManager].authWindow dismissWindow];
+//    }else {
+//        [[SFSDKWindowManager sharedManager].authWindow.viewController dismissViewControllerAnimated:NO completion:nil];
+//    }
 }
 
 #pragma mark - Accessor Methods

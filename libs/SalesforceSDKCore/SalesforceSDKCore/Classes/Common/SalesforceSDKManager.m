@@ -632,6 +632,11 @@ static NSString *const SFSDKShowDevDialogNotification = @"SFSDKShowDevDialogNoti
     }
 }
 
+- (void)sendPostCancelAuthorization
+{
+    _isLaunching = NO;
+}
+
 - (void)handleAppForeground:(NSNotification *)notification
 {
     [SFSDKCoreLogger d:[self class] format:@"App is entering the foreground."];
@@ -778,6 +783,14 @@ static NSString *const SFSDKShowDevDialogNotification = @"SFSDKShowDevDialogNoti
     [SFSecurityLockout setupTimer];
     [SFSecurityLockout startActivityMonitoring];
     [self sendUserAccountSwitch:fromUser toUser:toUser];
+}
+
+- (void)handlePostCancelAuthorization {
+    // Close the passcode screen and reset passcode monitoring.
+    [SFSecurityLockout cancelPasscodeScreen];
+    [SFSecurityLockout stopActivityMonitoring];
+    [SFSecurityLockout removeTimer];
+    [self sendPostCancelAuthorization];
 }
 
 - (void)savePasscodeActivityInfo
@@ -1069,6 +1082,10 @@ SFSDK_USE_DEPRECATED_BEGIN
 - (void)authManager:(SFAuthenticationManager *)manager willLogoutUser:(SFUserAccount *)user
 {
 
+}
+
+- (void)authManagerDidCancelAuthentication:(SFAuthenticationManager *)manager {
+    [self.sdkManagerFlow handlePostCancelAuthorization];
 }
 SFSDK_USE_DEPRECATED_END
 

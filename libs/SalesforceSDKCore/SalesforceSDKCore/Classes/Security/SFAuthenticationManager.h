@@ -189,6 +189,12 @@ SFSDK_DEPRECATED(6.0, 7.0, "Use SFUserAccountManagerDelegate, SFUserAccountManag
 */
 - (void)authManagerDidCancelGenericFlow:(SFAuthenticationManager *)manager;
 
+/**
+ Called when a back is pressed on authentication screen.
+ @param manager The instance of SFAuthenticationManager making the call.
+ */
+- (void)authManagerDidCancelAuthentication:(SFAuthenticationManager *)manager;
+
 @end
 
 /**
@@ -463,6 +469,12 @@ SFSDK_DEPRECATED(6.0, 7.0, "Use SFUserAccountManager Login/Logout apis instead."
  presentation.
  */
 - (void)dismissAuthViewControllerIfPresent;
+
+/** AP:
+ Dismisses the auth view controller, resetting the UI state back to its original
+ presentation.
+ */
+- (void)dismissAuthViewControllerAndCancelAuthorization;
 
 /** Return SFOAuthCredentials using know oauthClientId,
     @return Connect App auth credentials
